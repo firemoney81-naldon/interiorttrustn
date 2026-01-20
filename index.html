@@ -1,23 +1,697 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+    <!-- JSON-LD Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "30평 아파트 리모델링 서비스",
+      "provider": {
+        "@type": "Organization",
+        "name": "30평 리모델링 전문 인테리어 업체",
+        "url": "https://yourdomain.com",
+        "logo": "https://yourdomain.com/logo.png"
+      },
+      "areaServed": "대한민국",
+      "description": "30평대 아파트 리모델링 견적 산출 및 전문 시공 서비스 제공. 고객 맞춤형 디자인과 합리적인 비용 안내.",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "30평 리모델링 패키지",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "실속형 리모델링 패키지 (부분 시공)"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "25000000",
+              "priceCurrency": "KRW",
+              "description": "도배, 장판, 조명 등 필수 항목만 교체하는 가성비 패키지입니다."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "표준형 리모델링 패키지 (전체 시공)"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "40000000",
+              "priceCurrency": "KRW",
+              "description": "주방, 욕실을 포함한 전체 리모델링으로 가장 일반적인 시공 패키지입니다."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "고급형 리모델링 패키지 (하이엔드 시공)"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "70000000",
+              "priceCurrency": "KRW",
+              "description": "시스템 에어컨, 맞춤 가구, 고급 자재를 적용한 프리미엄 패키지입니다."
+            }
+          }
+        ]
+      }
+    }
+    </script>
+
+    <style>
+        /* CSS Reset and Global Styles */
+        body {
+            font-family: "Noto Sans KR", sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            background-color: #f8fbfd; /* Soft light blue background */
+            color: #333;
+            font-size: 16px;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #ffffff;
+            border-bottom: 3px solid #0056b3; /* Darker blue line */
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        header h1 {
+            color: #004080;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+
+        /* Navigation Styling */
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        nav a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #ff8c00; /* Orange highlight on hover */
+            transform: translateY(-2px);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background-color: #ff8c00;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Main Content Styling */
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Headings and Section Titles */
+        h2 {
+            color: #004080;
+            font-size: 2rem;
+            border-left: 5px solid #0056b3;
+            padding-left: 1rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            color: #0056b3;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Keyword Tags Section */
+        .keyword-tags {
+            margin: 2rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .keyword-tags a {
+            background-color: #e6f7ff; /* Lightest blue background */
+            color: #0056b3;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border: 1px solid #cceeff;
+        }
+
+        .keyword-tags a:hover {
+            background-color: #cceeff;
+            color: #004080;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        th {
+            background-color: #0056b3;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fefefe;
+        }
+
+        /* Graph Styling (for visual data presentation) */
+        .graph-container {
+            width: 100%;
+            height: 250px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            position: relative;
+        }
+
+        .bar {
+            width: 15%;
+            background-color: #0056b3;
+            color: white;
+            text-align: center;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            position: relative;
+            border-radius: 4px 4px 0 0;
+            transition: height 1s ease;
+        }
+
+        .bar span {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #333;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .graph-label {
+            position: absolute;
+            bottom: -25px;
+            width: 100%;
+            text-align: center;
+            color: #666;
+        }
+
+        /* Call to Action Button */
+        .cta-button {
+            display: block;
+            background-color: #ff8c00; /* Orange color */
+            color: white;
+            font-weight: 700;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 2rem auto;
+            max-width: 300px;
+            text-align: center;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #e67c00;
+            transform: translateY(-3px);
+        }
+
+        /* FAQ Accordion Styling */
+        dl dt {
+            font-weight: 700;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            color: #0056b3;
+            background-color: #f0f8ff;
+            padding: 1rem;
+            border-radius: 8px;
+            position: relative;
+            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        dl dt::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        dl dt.active::after {
+            content: '-';
+            transform: rotate(180deg);
+        }
+
+        dl dd {
+            margin-left: 0;
+            padding: 1rem;
+            background-color: #fafafa;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            border-left: 3px solid #ff8c00;
+            display: none;
+        }
+
+        dl dt.active + dd {
+            display: block;
+        }
+
+        /* Form Styling */
+        .form-container {
+            background-color: #f0f8ff;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .form-container label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 600;
+            color: #004080;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="tel"],
+        .form-container input[type="email"],
+        .form-container select,
+        .form-container textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-top: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        .form-container textarea {
+            min-height: 150px;
+        }
+
+        .form-container button {
+            background-color: #0056b3;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #004080;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            color: #777;
+            background-color: #e6eef4;
+            margin-top: 3rem;
+            border-top: 1px solid #ddd;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            main {
+                padding: 1rem;
+                margin: 1rem auto;
+            }
+
+            .graph-container {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>30평 아파트 리모델링 비용과 견적 가이드 (2026년 최신)</h1>
+        <p>현명한 선택을 위한 30평 인테리어 A to Z, 전문가가 알려주는 팁과 합리적인 가격 비교</p>
+        <nav>
+            <ul>
+                <li><a href="#cost">비용 안내</a></li>
+                <li><a href="#guide">리모델링 가이드</a></li>
+                <li><a href="#reviews">장단점 및 후기</a></li>
+                <li><a href="#faq">자주 묻는 질문</a></li>
+                <li><a href="#quote">견적 문의</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <!-- Section 1: Introduction -->
+        <section id="introduction">
+            <h2>30평 리모델링, 왜 신중하게 접근해야 할까요?</h2>
+            <p>
+                30평대 아파트는 대한민국에서 가장 일반적인 주거 형태로, 리모델링 수요가 매우 높습니다. 하지만 30평 아파트 리모델링은 단순한 주거 공간 개선을 넘어, 가족의 라이프스타일을 반영하고 미래 가치를 높이는 투자이기도 합니다. 많은 분들이 '30평 리모델링 비용'에 대한 궁금증을 가지고 있지만, 단순히 얼마가 든다고 단정하기 어렵습니다. 시공 범위, 자재 선택, 지역별 인건비 등 다양한 요소에 따라 견적 금액이 크게 달라지기 때문입니다.
+            </p>
+            <p>
+                2026년 현재 인테리어 시장은 자재비와 인건비 상승으로 인해 과거보다 '평균 비용'이 높아진 상황입니다. 이 글에서는 30평 리모델링을 계획하는 분들이 합리적인 예산을 세울 수 있도록, 30평 리모델링 견적의 핵심 요소들을 상세하게 분석하고, '저렴한곳'을 찾는 방법부터 '내돈내산' 후기를 통한 업체 선정 팁까지 종합적으로 제공합니다.
+            </p>
+            <div class="keyword-tags" aria-label="연관 키워드">
+                <a href="#cost">30평 리모델링 비용</a>
+                <a href="#quote">30평 인테리어 견적</a>
+                <a href="#reviews">30평 리모델링 후기</a>
+                <a href="#guide">30평 아파트 리모델링 가이드</a>
+                <a href="#regional">지역별 리모델링 가격</a>
+                <a href="#process">리모델링 절차</a>
+            </div>
+        </section>
+
+        <!-- Section 2: Cost Analysis -->
+        <section id="cost">
+            <h2>30평 리모델링 비용 분석: 예상 견적의 핵심 요소</h2>
+            <p>
+                30평대 아파트 리모델링을 위한 '예상 금액'은 2,500만 원부터 7,000만 원 이상까지 폭넓게 형성됩니다. 이처럼 큰 차이가 발생하는 이유는 무엇일까요? 견적을 구성하는 주요 요소는 크게 시공 범위, 자재 등급, 인건비로 나뉩니다.
+            </p>
+
+            <h3>1. 시공 범위에 따른 30평 리모델링 비용 차이</h3>
+            <p>
+                시공 범위는 30평 리모델링 비용을 결정하는 가장 중요한 요소입니다. '부분 리모델링'은 최소 비용으로 최대 효과를 노릴 때 선택하며, '전체 리모델링'은 새 아파트처럼 완벽하게 바꾸고자 할 때 선택합니다.
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>시공 내용</th>
+                        <th>평균 예상 금액 (2026년 기준)</th>
+                        <th>특징</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>부분 리모델링</td>
+                        <td>도배, 장판/마루 교체, 조명, 싱크대 상판 교체 등 핵심 부분만 시공</td>
+                        <td>1,500만 원 ~ 3,000만 원</td>
+                        <td>가성비가 좋고, 거주 중 시공이 비교적 용이함.</td>
+                    </tr>
+                    <tr>
+                        <td>전체 리모델링 (표준)</td>
+                        <td>주방, 욕실 전체 교체, 전체 마루, 도배, 샷시 교체</td>
+                        <td>3,500만 원 ~ 5,000만 원</td>
+                        <td>가장 일반적인 형태. 신축 아파트 느낌 연출 가능.</td>
+                    </tr>
+                    <tr>
+                        <td>전체 리모델링 (고급형)</td>
+                        <td>시스템 에어컨, 맞춤 가구(붙박이장, 수납장), 고급 마감재, 간접 조명, 샷시 전체 교체 포함</td>
+                        <td>5,000만 원 ~ 8,000만 원 이상</td>
+                        <td>디자인 완성도가 높으며, 하이엔드 자재와 디테일한 시공이 포함됨.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>2. 2026년 지역별 30평 리모델링 인건비와 물가 차이</h3>
+            <p>
+                리모델링 비용에서 인건비가 차지하는 비중은 30% 이상입니다. 인건비는 지역별로 차이가 발생합니다. <strong>서울</strong>, 특히 <strong>강남</strong>, <strong>서초</strong>, <strong>송파</strong> 지역은 높은 물가와 인건비로 인해 <strong>경기도</strong>(<strong>수원</strong>, <strong>분당</strong>, <strong>일산</strong>) 지역보다 5~10% 정도 견적이 높게 형성되는 경향이 있습니다. <strong>부산</strong>(<strong>해운대</strong>), <strong>대구</strong>, <strong>대전</strong>, <strong>광주</strong>, <strong>울산</strong> 등 광역시 또한 인건비가 높은 편이며, <strong>세종</strong>과 <strong>충남</strong>(<strong>천안</strong>), <strong>경남</strong>(<strong>창원</strong>) 지역도 수요 증가로 인해 견적이 상승하고 있습니다. 반면, <strong>전남</strong>(<strong>목포</strong>), <strong>전북</strong>(<strong>전주</strong>), <strong>강원</strong>(<strong>춘천</strong>, <strong>강릉</strong>), <strong>경북</strong>(<strong>구미</strong>, <strong>포항</strong>) 지역은 상대적으로 인건비가 안정적인 편입니다.
+            </p>
+
+            <h3>3. 리모델링 비용 항목별 구성 비율 (그래프)</h3>
+            <p>
+                30평대 아파트 리모델링 시 예산의 상당 부분은 자재비(30~40%)와 인건비(30~40%)가 차지합니다. 나머지 20~30%는 디자인비, 관리비, 폐기물 처리비, 부대 비용으로 구성됩니다.
+            </p>
+            <div class="graph-container">
+                <div class="bar" style="height: 70%;" aria-label="인건비 비율 35%">
+                    <span class="graph-label">인건비 (35%)</span>
+                </div>
+                <div class="bar" style="height: 80%;" aria-label="자재비 비율 40%">
+                    <span class="graph-label">자재비 (40%)</span>
+                </div>
+                <div class="bar" style="height: 50%;" aria-label="부대비용 비율 25%">
+                    <span class="graph-label">부대 비용 (25%)</span>
+                </div>
+            </div>
+            <p>
+                그래프에서 볼 수 있듯이, <strong>30평 리모델링</strong> 시 자재 등급을 조정하거나, <strong>셀프 인테리어</strong>(DIY)를 통해 인건비를 절약하는 것이 '저렴한곳'을 찾는 가장 현실적인 방법입니다. 다만, 전문성이 필요한 분야(샷시, 욕실 방수)는 전문가에게 맡기는 것이 장기적인 관점에서 유리합니다.
+            </p>
+        </section>
+
+        <!-- Section 3: Remodeling Guide (SEO keyword expansion) -->
+        <section id="guide">
+            <h2>30평 아파트 리모델링 가이드: 성공적인 인테리어를 위한 절차</h2>
+            <p>
+                30평 아파트 인테리어는 전문가와의 협업이 필수적입니다. 단순히 '30평 인테리어 싼곳'만 찾을 경우, 추후 하자로 인해 더 큰 비용이 발생할 수 있습니다. 체계적인 절차를 통해 '장단점'을 파악하고 현명한 결정을 내리세요.
+            </p>
+
+            <h3>1. 컨셉 설정 및 디자인 구상: 라이프스타일 반영</h3>
+            <p>
+                리모델링의 시작은 컨셉 설정입니다. 30평 아파트의 경우, 가족 구성원의 수와 생활 패턴을 고려한 공간 분할이 중요합니다. <strong>신혼부부</strong>라면 넓은 거실과 다이닝 공간을, <strong>자녀가 있는 집</strong>이라면 수납공간 확보와 안전성에 중점을 둬야 합니다. 최근에는 미니멀리즘 인테리어, 북유럽 스타일, 모던 스타일 등 다양한 컨셉이 유행하며, 2026년 트렌드는 '친환경 자재'와 '스마트홈 시스템'의 통합입니다.
+            </p>
+
+            <h3>2. 견적 비교 및 업체 선정: 30평 리모델링 업체 순위와 추천</h3>
+            <p>
+                여러 인테리어 업체의 '30평 리모델링 견적'을 비교하는 것이 필수입니다. 단순히 최종 금액이 낮은 '저렴한곳'을 선택하기보다는, 견적서에 포함된 자재 등급과 시공 범위, AS 보증 기간을 꼼꼼히 확인해야 합니다. '30평 리모델링 후기'와 '내돈내산' 리뷰를 참고하여 업체의 신뢰성을 검증하세요. <a href="https://www.kosc.or.kr/" target="_blank">대한건설정책연구원 (KOSC)</a>이나 <a href="https://www.lh.or.kr/" target="_blank">한국토지주택공사 (LH)</a> 등 공신력 있는 기관의 정보를 참고하여, 시공 기준과 자재 정보를 파악하는 것도 좋은 방법입니다.
+            </p>
+
+            <h3>3. 시공 진행 및 관리: 공정별 체크리스트</h3>
+            <p>
+                시공은 철거, 목공, 전기, 욕실, 타일, 도배, 마루, 가구, 조명 순서로 진행됩니다. 각 공정별로 전문가의 감독하에 진행되어야 합니다. 특히 <strong>수원</strong>이나 <strong>인천</strong> 등 지역에서는 아파트 단지별로 소음 규제 시간이 다를 수 있으므로, 사전에 관리사무소와 협의해야 합니다.
+            </p>
+
+            <h3>4. 30평 리모델링의 장점과 단점 (차이점 분석)</h3>
+            <p>
+                30평대 인테리어의 가장 큰 <strong>장점</strong>은 공간 활용도가 높다는 것입니다. 발코니 확장을 통해 거실을 넓게 사용하거나, 방의 용도를 변경하여 서재나 드레스룸으로 활용하기 좋습니다. <strong>단점</strong>은 30평 리모델링 비용 부담이 크다는 점과 시공 기간 동안 거주할 임시 거처를 마련해야 한다는 점입니다.
+            </p>
+        </section>
+
+        <!-- Section 4: Room-Specific Remodeling Focus -->
+        <section id="room-focus">
+            <h2>공간별 맞춤형 30평 인테리어 전략</h2>
+            <p>
+                30평대 리모델링은 각 공간의 특성을 살리는 것이 중요합니다. 특히 주방과 욕실은 비용 비중이 높고 만족도에 큰 영향을 미치므로 신중하게 계획해야 합니다.
+            </p>
+
+            <h3>1. 주방 리모델링: 수납과 효율성</h3>
+            <p>
+                주방은 '30평 인테리어'의 핵심입니다. <strong>아일랜드 식탁</strong>을 설치하여 조리대와 식사 공간을 분리하거나, <strong>11자형 주방</strong>으로 동선을 효율화하는 것이 최근 트렌드입니다. 주방가구는 한샘, 리바트 등 브랜드 제품을 선호하며, 상판은 인조대리석과 엔지니어드 스톤의 '장단점 차이점'을 비교하여 선택해야 합니다. <strong>광주</strong>, <strong>대구</strong> 등 지역에서는 식자재 마트와의 접근성을 고려한 주방 동선이 선호되기도 합니다.
+            </p>
+
+            <h3>2. 욕실 리모델링: 습식 vs. 건식</h3>
+            <p>
+                30평 아파트의 욕실 리모델링은 방수와 타일 작업이 생명입니다. 습식 욕실(한국식)과 건식 욕실(유럽식)의 <strong>장단점</strong>을 고려하여 선택해야 합니다. 건식 욕실은 쾌적하지만 공간 활용에 제약이 있으며, 습식 욕실은 청소가 용이한 <strong>장점</strong>이 있습니다. <strong>제주</strong> 지역의 경우 습도가 높아 방수와 환기 시스템에 더 많은 투자가 이루어져야 합니다.
+            </p>
+
+            <h3>3. 거실 및 침실: 확장과 조명</h3>
+            <p>
+                거실은 30평 인테리어의 얼굴입니다. 발코니 확장은 '장점'이 명확하지만, 단열과 난방에 신경 써야 하는 '단점'이 있습니다. 조명은 간접 조명과 실링팬을 활용하여 공간을 더욱 넓어 보이게 하는 효과를 줍니다. 침실은 수납공간 확보를 위해 붙박이장을 설치하는 것이 일반적이며, <strong>세종시</strong>와 같은 신도시 아파트는 드레스룸 설계에 중점을 두는 경우가 많습니다.
+            </p>
+        </section>
+
+        <!-- Section 5: Reviews and Tips -->
+        <section id="reviews">
+            <h2>30평 리모델링 내돈내산 후기와 현명한 업체 선택 팁</h2>
+            <p>
+                성공적인 리모델링은 '30평 인테리어 추천'을 많이 받는 업체를 선택하는 것에서 시작됩니다. '저렴한곳'을 무작정 찾기보다는, 신뢰할 수 있는 시공 사례와 '내돈내산 후기'를 꼼꼼히 확인하세요.
+            </p>
+
+            <h3>1. '싼곳'을 찾다가 발생하는 리모델링 하자의 함정</h3>
+            <p>
+                최근 '30평 리모델링 싼곳'을 광고하는 일부 업체들이 있습니다. 견적 금액이 다른 업체보다 지나치게 낮다면, 저가 자재를 사용하거나 필수 공정을 누락하는 경우가 많습니다. 특히 <strong>경남</strong>(<strong>김해</strong>, <strong>창원</strong>) 지역에서는 욕실 방수나 샷시 시공에서 하자가 발생할 경우, 재시공 비용이 훨씬 많이 들기 때문에 초기 선택이 중요합니다. <strong>충북</strong>(<strong>청주</strong>) 지역의 '가입'된 인테리어 플랫폼을 통해 검증된 업체를 선택하는 것이 안전합니다.
+            </p>
+
+            <h3>2. 30평 리모델링 후기 사례 비교 (지역별)</h3>
+            <p>
+                실제 <strong>후기</strong>를 통해 30평 리모델링의 현실적인 모습을 볼 수 있습니다. <strong>부산</strong> <strong>해운대구</strong>의 한 아파트에서는 고급 마감재를 사용하여 7,000만 원대의 견적이 나왔지만, <strong>경기도</strong> <strong>용인</strong>의 아파트에서는 실속형 자재로 3,500만 원에 전체 리모델링을 완료한 사례도 있습니다. 이처럼 지역별, 자재별 '차이점'이 큽니다.
+            </p>
+
+            <h3>3. 리모델링 예산 절약을 위한 팁</h3>
+            <p>
+                예산을 절약하기 위한 방법으로 '부분 인테리어'를 고려해 보세요. <strong>전남</strong>(<strong>순천</strong>, <strong>여수</strong>) 지역의 경우, 도배와 장판만 교체해도 집 전체 분위기를 바꿀 수 있습니다. 또한 <a href="https://www.kosca.or.kr/" target="_blank">대한전문건설협회</a>에서 운영하는 인테리어 관련 교육 정보를 참고하여, 기본적인 지식을 습득하면 불필요한 비용을 줄일 수 있습니다.
+            </p>
+
+            <h3>4. 30평 리모델링 시 필수 고려사항 (2026년)</h3>
+            <p>
+                2026년에는 '단열 시공'의 중요성이 더욱 강조됩니다. <strong>강원도</strong>(<strong>속초</strong>)나 <strong>경북</strong>(<strong>안동</strong>) 등 추운 지역에서는 샷시 교체와 단열재 추가 시공을 통해 난방비 절약 효과를 크게 볼 수 있습니다. 또한, <a href="https://www.law.go.kr/법령/주택법" target="_blank">주택법</a>에 따라 아파트 관리 규정을 준수하며 공사를 진행해야 합니다.
+            </p>
+        </section>
+
+        <!-- Section 6: FAQ (Frequently Asked Questions) -->
+        <section id="faq">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+            <p>30평대 인테리어 계획 시 가장 많이 궁금해하는 질문들을 모았습니다.</p>
+            <dl>
+                <dt tabindex="0" aria-expanded="false">30평 리모델링 평균 기간은 얼마나 걸리나요?</dt>
+                <dd>전체 리모델링 기준으로 3주에서 6주 정도 소요됩니다. 부분 리모델링의 경우 1~2주면 완료됩니다. 공사 전 충분한 협의와 공사 계획 수립이 중요합니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false">30평 리모델링 예상 금액이 얼마인지 대략적으로 알 수 있나요?</dt>
+                <dd>네, 시공 범위와 자재 등급에 따라 '평균 금액'이 달라지지만, 30평 전체 리모델링의 경우 3,500만 원부터 시작한다고 보시면 됩니다. 자세한 견적은 현장 방문 후 정확한 측정을 통해 산출됩니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false">구축 아파트와 신축 아파트 리모델링의 '차이점'이 있나요?</dt>
+                <dd>구축 아파트는 샷시, 난방 배관, 누수 방지 등 기본 공사 항목이 추가되어 '견적 금액'이 높습니다. 반면 신축 아파트는 부분 시공 위주로 진행되어 '저렴한곳'을 찾기 쉽고, 비용 부담이 적습니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false">30평 인테리어 시 셀프 인테리어는 '장단점'이 무엇인가요?</dt>
+                <dd>셀프 인테리어의 가장 큰 '장점'은 '저렴한곳'을 직접 찾아 비용을 절감할 수 있다는 것입니다. '단점'은 전문성이 필요한 공정에서 하자가 발생하기 쉽고, 시간과 노력이 많이 든다는 점입니다. 특히 <strong>대전</strong>, <strong>세종</strong> 등 인테리어 시장이 활발한 지역에서는 전문 업체를 이용하는 것이 효율적입니다.</dd>
+            </dl>
+        </section>
+
+        <!-- Section 7: Quote Form (for high engagement/dwell time) -->
+        <section id="quote">
+            <h2>30평 리모델링 무료 견적 문의하기</h2>
+            <p>정확한 30평 리모델링 '예상 금액'을 알고 싶으신가요? 견적 요청서를 작성해 주시면 전문가가 빠르게 연락드립니다. '내돈내산' 후기가 좋은 업체를 추천받고, 합리적인 '견적 금액'을 확인하세요.</p>
+
+            <div class="form-container">
+                <form action="#" method="POST" onsubmit="alert('견적 문의가 접수되었습니다. 곧 연락드리겠습니다.'); return false;">
+                    <label for="name">이름:</label>
+                    <input type="text" id="name" name="name" required placeholder="예: 홍길동">
+
+                    <label for="phone">연락처:</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="예: 010-1234-5678">
+
+                    <label for="email">이메일:</label>
+                    <input type="email" id="email" name="email" placeholder="예: example@domain.com">
+
+                    <label for="region">거주 지역:</label>
+                    <select id="region" name="region" required>
+                        <option value="">지역 선택</option>
+                        <option value="서울">서울</option>
+                        <option value="부산">부산</option>
+                        <option value="인천">인천</option>
+                        <option value="대구">대구</option>
+                        <option value="대전">대전</option>
+                        <option value="광주">광주</option>
+                        <option value="울산">울산</option>
+                        <option value="세종">세종</option>
+                        <option value="경기도">경기도</option>
+                        <option value="강원도">강원도</option>
+                        <option value="충청북도">충청북도</option>
+                        <option value="충청남도">충청남도</option>
+                        <option value="전라북도">전라북도</option>
+                        <option value="전라남도">전라남도</option>
+                        <option value="경상북도">경상북도</option>
+                        <option value="경상남도">경상남도</option>
+                        <option value="제주도">제주도</option>
+                    </select>
+
+                    <label for="building_type">건물 형태:</label>
+                    <select id="building_type" name="building_type" required>
+                        <option value="">선택</option>
+                        <option value="아파트">아파트</option>
+                        <option value="빌라">빌라</option>
+                        <option value="주택">주택</option>
+                        <option value="오피스텔">오피스텔</option>
+                    </select>
+
+                    <label for="scope">시공 범위:</label>
+                    <select id="scope" name="scope" required>
+                        <option value="">선택</option>
+                        <option value="전체 리모델링">전체 리모델링</option>
+                        <option value="부분 리모델링 (주방/욕실)">부분 리모델링 (주방/욕실)</option>
+                        <option value="부분 리모델링 (도배/마루)">부분 리모델링 (도배/마루)</option>
+                        <option value="기타">기타</option>
+                    </select>
+
+                    <label for="notes">추가 요청 사항:</label>
+                    <textarea id="notes" name="notes" placeholder="구체적인 요구사항을 작성해 주세요. (예: 샷시 교체, 확장, 인테리어 스타일 등)"></textarea>
+
+                    <label for="privacy">개인정보 수집 및 이용 동의:</label>
+                    <input type="checkbox" id="privacy" name="privacy" value="agree" required> 동의합니다.
+
+                    <button type="submit">견적 문의 신청</button>
+                </form>
+            </div>
+        </section>
     </main>
-  </body>
-</html>
+
+    <script>
+        // FAQ Accordion Script
+        document.querySelectorAll('dl dt').forEach((dt) => {
+            dt.addEventListener('click', () => {
+                const isActive = dt.classList.contains('active');
+                dt.classList.toggle('active');
+                dt.setAttribute('aria-expanded', !isActive);
+                const dd = dt.nextElementSibling;
+                if (dd) {
+                    dd.style.display = isActive ? 'none' : 'block';
+                }
+            });
+
+            dt.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    dt.click();
+                }
+            });
+        });
+    </script>
+
+  
